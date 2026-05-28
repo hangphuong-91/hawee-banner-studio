@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #C9187F;
+  --color-primary-dark: #50002F;
+  --color-primary-light: #FFD4E5;
+  --color-secondary: #E83A78;
+  --color-accent: #FB6094;
+  --font-brand: 'MonaSans', 'Inter', sans-serif;
+}
+
+/* CRITICAL: font-display: block so Fabric.js renders MonaSans before canvas paint */
+@font-face {
+  font-family: 'MonaSans';
+  src: url('/brand/fonts/MonaSans_SemiExpanded-Medium.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'MonaSans';
+  src: url('/brand/fonts/MonaSans_Condensed-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: block;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: 'MonaSans', 'Inter', sans-serif;
+  background: #0f0a14;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  /* Prevent double-tap zoom on mobile */
+  touch-action: manipulation;
+}
+
+#root { width: 100%; min-height: 100vh; min-height: 100dvh; }
+
+/* Prevent iOS Safari from zooming on input focus (requires font-size >= 16px) */
+@media (max-width: 768px) {
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+}
+
+/* Safe area padding for phones with notch */
+.bottom-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+::-webkit-scrollbar-thumb { background: rgba(201,24,127,0.4); border-radius: 3px; }
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-white text-sm
+           bg-[#C9187F] hover:bg-[#E83A78] transition-all duration-200
+           shadow-lg hover:-translate-y-0.5
+           disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0;
+  }
+  .btn-outline {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm
+           border border-[#C9187F] text-[#C9187F] hover:bg-[#C9187F] hover:text-white
+           transition-all duration-200;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm
+           text-white/70 hover:text-white hover:bg-white/10 transition-all duration-150;
+  }
+  .glass {
+    @apply bg-white/5 backdrop-blur-md border border-white/10;
+  }
+  .glass-dark {
+    @apply bg-black/30 backdrop-blur-md border border-white/10;
+  }
+  .gradient-text {
+    background: linear-gradient(135deg, #C9187F, #E83A78, #FB6094);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .input-brand {
+    @apply w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white
+           placeholder-white/30 focus:outline-none focus:border-[#C9187F]
+           focus:ring-2 focus:ring-[#C9187F22] transition-all duration-150 text-sm;
+  }
+  .label-brand {
+    @apply block text-xs font-semibold text-white/50 uppercase tracking-wider mb-1.5;
+  }
+  .tag-pill {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold
+           bg-[#C9187F22] text-[#FB6094] border border-[#C9187F33];
+  }
+  .panel-header {
+    @apply px-4 py-3 border-b border-white/10 flex items-center justify-between;
+  }
+  .compliance-pass  { @apply text-emerald-400 bg-emerald-400/10 border-emerald-400/20; }
+  .compliance-warn  { @apply text-amber-400  bg-amber-400/10  border-amber-400/20; }
+  .compliance-fail  { @apply text-rose-400   bg-rose-400/10   border-rose-400/20; }
+  .compliance-info  { @apply text-sky-400    bg-sky-400/10    border-sky-400/20; }
+}
